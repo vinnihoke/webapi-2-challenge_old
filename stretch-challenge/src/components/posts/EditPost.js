@@ -1,24 +1,26 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const EditPost = ({ setLoading, loading }) => {
-  const [post, setPost] = useState({
+const EditPost = props => {
+  const { setLoading, loading, editing, setEditing } = props;
+
+  const [update, setUpdate] = useState({
     title: "",
     contents: ""
   });
 
   const changeHandler = e => {
-    setPost({ ...post, [e.target.name]: e.target.value });
+    setUpdate({ ...update, [e.target.name]: e.target.value });
   };
 
   const onSubmit = e => {
     e.preventDefault();
     setLoading(true);
-    if (post.title !== "" || post.contents !== "") {
+    if (update.title !== "" || update.contents !== "") {
       axios
-        .post("http://localhost:4000/api/posts/", post)
+        .put("http://localhost:4000/api/posts/", update)
         .then(res => {
-          console.log("Post successful");
+          console.log("Post successfully updated");
           setLoading(false);
         })
         .catch(err => {
@@ -40,7 +42,7 @@ const EditPost = ({ setLoading, loading }) => {
           <input
             type="text"
             name="title"
-            value={post.title}
+            value={update.title}
             onChange={e => changeHandler(e)}
           />
         </label>
@@ -49,11 +51,12 @@ const EditPost = ({ setLoading, loading }) => {
           <input
             type="text"
             name="contents"
-            value={post.contents}
+            value={update.contents}
             onChange={e => changeHandler(e)}
           />
         </label>
         <input type="submit" value="Update post" />
+        <button onClick={() => setEditing(!editing)}>Cancel Edit</button>
       </form>
     </section>
   );

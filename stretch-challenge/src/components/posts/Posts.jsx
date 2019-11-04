@@ -27,7 +27,11 @@ const Posts = () => {
   return (
     <section>
       {editing === true ? (
-        <EditPost setEditing={setEditing} editing={editing} />
+        <EditPost
+          setEditing={setEditing}
+          editing={editing}
+          setLoading={setLoading}
+        />
       ) : (
         <AddPost setLoading={setLoading} />
       )}
@@ -37,6 +41,7 @@ const Posts = () => {
           {...post}
           setLoading={setLoading}
           setEditing={setEditing}
+          editing={editing}
         />
       ))}
     </section>

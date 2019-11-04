@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 
 const Post = props => {
-  const { setLoading, setEditing } = props;
+  const { setLoading, setEditing, editing } = props;
 
   const deletePost = () => {
     setLoading(true);
@@ -19,7 +19,7 @@ const Post = props => {
   };
 
   const editPost = () => {
-    setEditing(true);
+    setEditing(!editing);
   };
 
   return (
