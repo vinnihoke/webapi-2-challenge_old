@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Post from "./Post.jsx";
+import AddPost from "./AddPost.js";
+import EditPost from "./EditPost.js";
 
 const Posts = () => {
   const [loading, setLoading] = useState(false);
+  const [editing, setEditing] = useState(false);
   const [posts, setPosts] = useState([]);
 
   const retrievePosts = () => {
@@ -19,12 +22,22 @@ const Posts = () => {
 
   useEffect(() => {
     retrievePosts();
-  }, []);
+  }, [loading]);
 
   return (
     <section>
+      {editing === true ? (
+        <EditPost setEditing={setEditing} editing={editing} />
+      ) : (
+        <AddPost setLoading={setLoading} />
+      )}
       {posts.map((post, index) => (
-        <Post key={index} {...post} />
+        <Post
+          key={index}
+          {...post}
+          setLoading={setLoading}
+          setEditing={setEditing}
+        />
       ))}
     </section>
   );

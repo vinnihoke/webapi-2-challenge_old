@@ -1,7 +1,27 @@
 import React from "react";
+import axios from "axios";
 
 const Post = props => {
-  console.log(props);
+  const { setLoading, setEditing } = props;
+
+  const deletePost = () => {
+    setLoading(true);
+    axios
+      .delete(`http://localhost:4000/api/posts/${props.id}`)
+      .then(res => {
+        console.log(`Successfully deleted post ${props.id}`);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.log(err);
+        setLoading(false);
+      });
+  };
+
+  const editPost = () => {
+    setEditing(true);
+  };
+
   return (
     <article
       style={{
@@ -22,6 +42,8 @@ const Post = props => {
           </section>
         </figure>
       </div>
+      <button onClick={deletePost}>Delete</button>
+      <button onClick={editPost}>Edit</button>
     </article>
   );
 };
