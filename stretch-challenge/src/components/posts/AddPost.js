@@ -6,6 +6,7 @@ const AddPost = ({ setLoading, loading }) => {
     title: "",
     contents: ""
   });
+  const [success, setSuccess] = useState(false);
 
   const changeHandler = e => {
     setPost({ ...post, [e.target.name]: e.target.value });
@@ -29,11 +30,16 @@ const AddPost = ({ setLoading, loading }) => {
       setLoading(false);
       alert("Please add a title and contents");
     }
+    setSuccess(true);
+    setTimeout(() => {
+      setSuccess(false);
+    }, 2500);
   };
 
   return (
     <section>
-      <h3>Add a Post</h3>
+      {success === true ? <h3>Post successful!</h3> : <h3>Add a Post</h3>}
+
       <form onSubmit={e => onSubmit(e)}>
         <label htmlFor="title">
           Title:
