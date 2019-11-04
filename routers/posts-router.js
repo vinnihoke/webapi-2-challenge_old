@@ -43,6 +43,41 @@ router.post("/", (req, res) => {
     });
 });
 
+// Delete Requests
+router.delete("/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const deleted = await Posts.remove(id);
+    if (!!deleted) {
+      res.status(200).json({ success: true, boolean: deleted });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "ID does not match existing Post"
+      });
+    }
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
+// Put Requests
+router.put("/:id", async (req, res) => {
+  const updates = req.body;
+  try {
+    const updatedPost = await Posts.update(req.params.id, updates);
+    if (!!updatedPost) {
+      res
+        .status(202)
+        .json({ success: true, message: "Post was updated successfully" });
+    } else {
+      res.status(404).json({ success: false, message: "Body or ID not valid" });
+    }
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
 // End endpoints
 
 module.exports = router;
