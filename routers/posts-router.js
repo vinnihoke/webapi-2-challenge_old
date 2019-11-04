@@ -31,6 +31,17 @@ router.get("/:id", (req, res) => {
 });
 
 // Post requests
+router.post("/", (req, res) => {
+  Posts.insert(req.body)
+    .then(post => {
+      res.status(201).json(post);
+    })
+    .catch(err => {
+      res.status(500).json({
+        error: err
+      });
+    });
+});
 
 // End endpoints
 

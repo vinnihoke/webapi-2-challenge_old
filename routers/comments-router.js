@@ -9,7 +9,7 @@ router.get("/:id/comments", async (req, res) => {
   try {
     const comments = await Comments.findPostComments(req.params.id);
 
-    if (!comments.length) {
+    if (!!comments.length) {
       res.status(200).json(comments);
     } else {
       res.status(404).json({ message: "No comments on this post" });
@@ -25,10 +25,9 @@ router.post("/:id/comments", async (req, res) => {
 
   try {
     const comment = await Comments.insertComment(commentContent);
-    console.log("comments-router.js :27 ", comment);
     res.status(201).json(comment);
   } catch (err) {
-    res.status(500).json({ message: err });
+    res.status(500).json({ error: err });
   }
 });
 

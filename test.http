@@ -11,7 +11,7 @@ GET {{url}}/1
 
 ###
 
-GET {{url}}/1/comments
+GET {{url}}/7/comments
 
 ###
 
