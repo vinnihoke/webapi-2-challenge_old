@@ -1,0 +1,55 @@
+@url = http://localhost:4000/api/posts
+@content = application/json
+
+// GET Requests
+
+GET {{url}}
+
+###
+
+GET {{url}}/1
+
+###
+
+GET {{url}}/3/comments
+
+###
+
+// POST Requests
+
+POST {{url}}/
+Content-Type: {{content}}
+
+{
+	"title": "Adding a new post",
+	"contents": "This is the contents of the post"
+}
+
+### 
+
+POST {{url}}/3/comments
+Content-Type: {{content}}
+
+{
+	"text": "This is some voodoo shizz"
+}
+
+// DELETE Requests
+###
+
+DELETE {{url}}/8
+
+###
+
+// Put Requests
+PUT {{url}}/7
+Content-Type: {{content}}
+
+{
+	"title": "This is the new title via PUT",
+	"contents": "This is the contents via PUT"
+}
+
+
+
+// End POST Requests
